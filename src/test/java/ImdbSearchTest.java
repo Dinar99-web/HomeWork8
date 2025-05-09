@@ -1,5 +1,6 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -17,6 +18,7 @@ public class ImdbSearchTest {
     }
 
     @ParameterizedTest(name = "Для поискового запроса {0} должен отдавать не пустой список фильмов")
+    @DisplayName("TC_001: Проверка не пустого вывода страницы при поиске фильмов")
     @ValueSource(strings = {
             "Интерстеллар",
             "Начало",
@@ -33,6 +35,7 @@ public class ImdbSearchTest {
     }
 
     @ParameterizedTest(name = "Для поискового запроса {0} должны быть видны и название, и год фильма")
+    @DisplayName("TC_002: Проверка поиска фильма по названию и году")
     @CsvSource({
             "Интерстеллар, 2014",
             "Начало, 2010",
@@ -46,6 +49,7 @@ public class ImdbSearchTest {
     }
     @CsvFileSource(resources = "/movie_data")
     @ParameterizedTest(name = "Для поискового запроса {0} должен быть указан год {1}")
+    @DisplayName("TC_003: Проверка поиска фильма по названию и году")
     void searchResultsShouldContainExpectedFilmAndYear (String movieTitle, int year) {
         $("#suggestion-search").setValue(movieTitle + " " + year).pressEnter();
 
